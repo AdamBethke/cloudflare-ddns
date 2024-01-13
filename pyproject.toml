@@ -1,0 +1,10 @@
+[project]
+name = "cloudflare-ddns"
+description = "Dynamic DNS updater"
+version = "1.0.0"
+dependencies = [
+	"pydantic>=2.0,<3.0",
+	"pydantic_settings>=2.0,<3.0",
+	"httpx",
+	"prometheus_client",
+]
