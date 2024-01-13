@@ -1,11 +1,11 @@
 import httpx
 
-from ddns.configuration import Configuration
-from ddns.metrics import dns_entry_updated
-from ddns.metrics import failed_request
-from ddns.models import Trace
-from ddns.models import DNSEntry
-from ddns.models import DNSEntries
+from cloudflare_ddns.configuration import Configuration
+from cloudflare_ddns.metrics import dns_entry_updated
+from cloudflare_ddns.metrics import failed_request
+from cloudflare_ddns.models import Trace
+from cloudflare_ddns.models import DNSEntry
+from cloudflare_ddns.models import DNSEntries
 from pydantic import BaseModel
 from pydantic.networks import IPvAnyAddress
 

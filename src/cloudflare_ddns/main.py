@@ -1,8 +1,8 @@
 from time import sleep
 
-from ddns.cloudflare import DNSEntryManager
-from ddns.configuration import Configuration
-from ddns.metrics import dns_entry_checked
+from cloudflare_ddns.cloudflare import DNSEntryManager
+from cloudflare_ddns.configuration import Configuration
+from cloudflare_ddns.metrics import dns_entry_checked
 from prometheus_client import start_http_server
 
 
