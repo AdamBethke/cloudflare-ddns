@@ -47,7 +47,7 @@ class DNSEntryManager(BaseModel):
             except Exception:
                 pass
             failed_request(
-                label="cloudflare-api" if authenticated else "cloudflare-trace",
+                endpoint="cloudflare-api" if authenticated else "cloudflare-trace",
                 method=method,
             )
             return None
