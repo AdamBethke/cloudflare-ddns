@@ -13,6 +13,8 @@ Example invocation:
 ```sh
 podman run \
     --detach \
+    --restart always \
+    --name ddns \
     --publish 9100:9100 \
     --env API_TOKEN={...} \
     --env ZONE_ID={...} \
