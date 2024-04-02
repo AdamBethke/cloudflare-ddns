@@ -17,8 +17,9 @@ def main():
             exists = manager.get_current_entry()
             if exists is False:
                 manager.create_entry()
-        if not manager.is_current:
-            manager.update_entry()
+        current_ip_address = manager.get_current_entry()
+        if manager.record.ip_address != current_ip_address:
+            manager.update_entry(current_ip_address)
         dns_entry_checked()
         sleep(configuration.update_interval_in_seconds)
 

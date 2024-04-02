@@ -23,10 +23,6 @@ class DNSEntryManager(BaseModel):
     def api_url(self) -> str:
         return f"https://api.cloudflare.com/client/v4/zones/{self.configuration.zone_id.get_secret_value()}/dns_records"
 
-    @property
-    def is_current(self) -> bool:
-        return self.record.ip_address == self.current_ip_address
-
     def call(
         self,
         method: str,
@@ -76,9 +72,13 @@ class DNSEntryManager(BaseModel):
             return False
         return None
 
-    @property
-    def json_payload(self) -> dict:
-        ip = self.current_ip_address
+    def json_payload(self, ip: IPvAnyAddress | None = None) -> dict | None:
+        if ip is None:
+            ip = get_current_entry()
+
+        if ip is None:
+            return None
+
         return {
             "content": ip.exploded,
             "name": self.configuration.name,
@@ -89,15 +89,17 @@ class DNSEntryManager(BaseModel):
 
     def create_entry(self) -> None:
         """Creates a DNS entry, setting the name to the ip address provided"""
-        response = self.call(
-            "POST", self.api_url,
-            json=self.json_payload,
-        )
+        json = self.json_payload()
+        if not json:
+            return
+
+        response = self.call("POST", self.api_url, json=json)
         self.set_record(DNSEntry(**response.json()["result"]))
 
     def update_entry(self) -> None:
-        response = self.call(
-            "PATCH", f"{self.api_url}/{self.record.id}",
-            json=self.json_payload,
-        )
+        json = self.json_payload()
+        if not json:
+            return
+
+        response = self.call("PATCH", f"{self.api_url}/{self.record.id}", json=json)
         self.set_record(DNSEntry(**response.json()["result"]))
