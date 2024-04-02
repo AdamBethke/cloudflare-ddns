@@ -48,8 +48,7 @@ class DNSEntryManager(BaseModel):
             )
             return None
 
-    @property
-    def current_ip_address(self) -> IPvAnyAddress | None:
+    def get_current_ip_address(self) -> IPvAnyAddress | None:
         response = self.call("GET", self.trace_url, authenticated=False)
         if response:
             params = {}
