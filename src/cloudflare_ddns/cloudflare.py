@@ -96,8 +96,8 @@ class DNSEntryManager(BaseModel):
         response = self.call("POST", self.api_url, json=json)
         self.set_record(DNSEntry(**response.json()["result"]))
 
-    def update_entry(self) -> None:
-        json = self.json_payload()
+    def update_entry(self, ip: IPvAnyAddress | None = None) -> None:
+        json = self.json_payload(ip)
         if not json:
             return
 
