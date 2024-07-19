@@ -67,12 +67,12 @@ class DNSEntry(BaseModel):
     proxiable: bool
     proxied: bool
     ttl: int
-    locked: bool
     meta: dict[str, Any]
     comment: str | None
     tags: list[str]
     created_on: datetime
     modified_on: datetime
+
     @property
     def ip_address(self) -> IPvAnyAddress:
         if self.type in (DNSEntryType.A, DNSEntryType.AAAA):
