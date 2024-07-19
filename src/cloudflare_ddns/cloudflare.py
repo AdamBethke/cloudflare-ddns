@@ -73,7 +73,7 @@ class DNSEntryManager(BaseModel):
 
     def json_payload(self, ip: IPvAnyAddress | None = None) -> dict | None:
         if ip is None:
-            ip = get_current_entry()
+            ip = self.get_current_entry()
 
         if ip is None:
             return None
