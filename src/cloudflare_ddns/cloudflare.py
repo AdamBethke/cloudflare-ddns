@@ -59,7 +59,7 @@ class DNSEntryManager(BaseModel):
             return trace.ip
         return None
 
-    def get_current_entry(self) -> bool | None:
+    def get_current_entry(self) -> IPvAnyAddress | None:
         response = self.call("GET", self.api_url)
         # todo: this doesn't have pagination, but the endpoint is paginated
         if response:
@@ -67,8 +67,8 @@ class DNSEntryManager(BaseModel):
             for record in records.result:
                 if record.name == self.configuration.name:
                     self.set_record(record)
-                    return True
-            return False
+                    return record.ip_address
+            return None
         return None
 
     def json_payload(self, ip: IPvAnyAddress | None = None) -> dict | None:

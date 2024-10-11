@@ -15,7 +15,7 @@ def main():
     while True:
         if not manager.record:
             exists = manager.get_current_entry()
-            if exists is False:
+            if not exists:
                 manager.create_entry()
         current_ip_address = manager.get_current_ip_address()
         if manager.record.ip_address != current_ip_address:
